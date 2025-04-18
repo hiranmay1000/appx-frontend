@@ -1,0 +1,50 @@
+.vaultContainer {
+  padding: 10px 30px;
+}
+
+.vaultHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vaultContainer {
+  padding: 20px;
+}
+
+.vaultHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.folders {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.folderBox {
+  padding: 5px 15px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.folderBox:hover {
+  background-color: #fff;
+  cursor: pointer;
+  color: #0c5769;
+  font-weight: 500;
+}
+
+
+.modalWrapper {
+  width: 75%;
+  height: 80%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}

@@ -1,0 +1,16 @@
+button{
+    height: 30px;
+    background-color: #0e4a7a;
+    border-radius: 7px;
+    color: #fff;
+    border: none;
+    outline: none;
+    margin: 12px 3px;
+    cursor: pointer;
+    padding: 0 10px;
+    display: inline-block;
+}
+
+button:hover{
+    box-shadow: 0px 0px 7px #0d5d9e;
+}
