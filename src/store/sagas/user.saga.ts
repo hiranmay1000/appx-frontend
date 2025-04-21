@@ -22,17 +22,27 @@ interface loginPayload {
 // SIGNUP SAGA
 function* handleSignup(action: PayloadAction<signupPayload>): Generator<any, void, any> {
   try {
-    const { username, email, password, image } = action.payload;    
+    const { username, email, password, image } = action.payload;  
+    
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('email', email);
+    formData.append('password', password);
+    if (image) {
+      formData.append('image', image);
+    }    
 
-    const response = yield call(axios.post, 'http://localhost:4000/api/signup', {
-      username,
-      email,
-      password,
-      image
+    const response = yield call(axios.post, 'http://localhost:4000/api/signup', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
 
     if (response.status === 201 || response.status === 200) {
       const user = response.data.user;
+      console.log("User signed up successfully:", user);
+      yield put(setToastMessage({ message: 'Signup successful!', color: 'green' }));
+      
       yield put(setUserData(user));     
     }
   } catch (error: any) {
@@ -112,7 +122,35 @@ function* handleChangePassword(action: PayloadAction<{ email: string; oldPasswor
   }
 }
 
+// EDIT IMAGE SAGA
+function* handleEditImage(action: PayloadAction<{ image: File }>): Generator<any, void, any> {
+  try {
+    const { image } = action.payload;  
+    
+    const formData = new FormData();
+    formData.append('image', image);    
+
+    const response = yield call(axios.put, 'http://localhost:4000/api/profile/edit-image', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    if (response.status === 200) {      
+      yield put(setToastMessage({ message: 'Image updated successfully!', color: 'green' }));
+    }
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      yield put(setUserError(error.response?.data?.message || 'Image update failed'));
+      yield put(setToastMessage({ message: 'Failed to update image. Try again!', color: 'red' }));
+    } else {
+      yield put(setUserError('An unknown error occurred'));
+      yield put(setToastMessage({ message: 'Failed to update image. Try again!', color: 'red' }));
+    }
+  }
+}
 
 
 
-export { handleGetUserData, handleLogin, handleSignup, handleChangePassword};
+
+export { handleGetUserData, handleLogin, handleSignup, handleChangePassword, handleEditImage};

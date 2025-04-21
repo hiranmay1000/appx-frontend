@@ -6,6 +6,7 @@ interface User {
     username: string | 'username';
     email: string;
     password: string;
+    image: string;
 }
 
 // Define the slice state type
@@ -35,38 +36,31 @@ export const usersSlice = createSlice({
             state.isLoading = false;
             state.error = null;
         },
-
         getUserData: (state) => {
             state.isLoading = true;
             state.error = null;
         },
-
         setUserError: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
             state.isLoading = false;
         },
-
-        signupUser: (state, action: PayloadAction<{username: string, email: string, password: string, image: File}>) => {
+        signupUser: (state, action: PayloadAction<{ username: string, email: string, password: string, image: File }>) => {
             state.isLoading = true;
             state.error = null;
         },
-
         loginUser: (state, action: PayloadAction<{ email: string, password: string }>) => {
             state.isLoading = true;
             state.error = null;
         },
-
         logoutUser: (state) => {
             state.user = null;
             state.error = null;
             state.isLoading = false;
         },
-
         changePassword: (state, action: PayloadAction<{ email?: string, oldPassword: string, newPassword: string }>) => {
             state.isLoading = true;
             state.error = null;
         },
-
         setToastMessage: (state, action: PayloadAction<{ message: string; color: string }>) => {
             state.toastMessage = action.payload.message;
             state.toastColor = action.payload.color;
@@ -74,9 +68,27 @@ export const usersSlice = createSlice({
         clearToastMessage: (state) => {
             state.toastMessage = null;
             state.toastColor = 'red';
+        },
+        editImage: (state, action: PayloadAction<{ image: File }>) => {
+            state.isLoading = true;
+            state.error = null;
         }
     },
 });
 
-export const { setUserData, getUserData, setUserError,signupUser, loginUser, logoutUser, changePassword, setToastMessage, clearToastMessage } = usersSlice.actions;
+export const {
+    setUserData,
+    getUserData,
+    setUserError,
+    signupUser,
+    loginUser,
+    logoutUser,
+    changePassword,
+    setToastMessage,
+    clearToastMessage,
+    editImage
+} = usersSlice.actions;
+
+
+
 export default usersSlice.reducer;

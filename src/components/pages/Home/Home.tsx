@@ -9,7 +9,7 @@ const Home: React.FC = () => {
   const location = useLocation();
   const { user } = useSelector((state: RootState) => state.users);
 
-  if (user === null) {
+  if (user === null || user === undefined) {    
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

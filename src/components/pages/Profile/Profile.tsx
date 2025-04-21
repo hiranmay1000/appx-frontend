@@ -9,7 +9,7 @@ import { changePassword } from '../../../store/slices/user.slices';
 
 const Profile: React.FC = () => {
   const { user, toastMessage, toastColor } = useSelector((state: RootState) => state.users);
-  
+
   const [isChangePassword, setChangePassword] = useState<boolean>(false);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -34,10 +34,21 @@ const Profile: React.FC = () => {
     }, 5000);
   };
 
+  const handleEditImage = () => {
+    console.log('Edit image clicked');
+    
+    navigate('/edit-image');
+  }
+
   return (
     <>
       <div className={style.profileContent}>
-        <h1>Your Information</h1>
+        <div className={style.imageWrapper}>
+          <img src={user?.image} alt={user?.username} onClick={handleEditImage} />
+          <p className={style.hoverText}>Edit ✎</p>
+        </div>
+
+        <br />
         <h5><strong>Username:</strong> {user?.username}</h5>
         <h5><strong>Email:</strong> {user?.email}</h5>
 
@@ -60,7 +71,7 @@ const Profile: React.FC = () => {
             <Button background={'red'} onClick={() => setChangePassword(false)}>Cancel</Button>
           </div>
         ) : (
-          <Button background='brown' onClick={() => setChangePassword(true)}>Change Password</Button>
+          <Button onClick={() => setChangePassword(true)}>Change Password</Button>
         )}
 
         <p>_____________________</p>
@@ -68,7 +79,7 @@ const Profile: React.FC = () => {
           <Button onClick={() => navigate('/')}>Home 🏠︎</Button>
           <Button onClick={() => navigate('/dashboard')}>Dashboard 📑</Button>
           <Button onClick={() => navigate('/vault')}>Vault </Button>
-          <Button onClick={handleLogout}>Logout ➜</Button>
+          <Button onClick={handleLogout} background='red'>Logout ➜</Button>
         </div>
       </div>
 

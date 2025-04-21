@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
                     <h4>APPX</h4>
                 </div>
                 <div className="user-profile-logo">
-                    <Avatar src={''}/>
+                    <Avatar />
                 </div>
             </nav>
 }

@@ -24,6 +24,8 @@ const SignUp: React.FC<SignUpProps> = ({ onSubmit }) => {
   
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
+      console.log('file',selectedFile);
+      
       onSubmit(username, email, password, selectedFile);       
     };
 

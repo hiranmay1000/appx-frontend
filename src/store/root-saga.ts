@@ -1,5 +1,5 @@
 import { all, takeEvery } from 'redux-saga/effects';
-import { handleChangePassword, handleGetUserData, handleLogin, handleSignup } from './sagas/user.saga';
+import { handleChangePassword, handleEditImage, handleGetUserData, handleLogin, handleSignup } from './sagas/user.saga';
 
 const rootSaga = function* () {
   yield all([
@@ -7,6 +7,7 @@ const rootSaga = function* () {
     takeEvery('user/loginUser', handleLogin),
     takeEvery('user/signupUser', handleSignup),
     takeEvery('user/changePassword', handleChangePassword),
+    takeEvery('user/editImage', handleEditImage)
   ]);
 };
 

@@ -6,3 +6,39 @@
     flex-direction: column;
     height: calc(100vh - 100px);
 }
+
+.imageWrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.imageWrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.hoverText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.imageWrapper:hover img {
+    opacity: 0.3;
+}
+
+.imageWrapper:hover .hoverText {
+    opacity: 1;
+}

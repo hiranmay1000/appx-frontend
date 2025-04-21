@@ -4,7 +4,7 @@ import SignUpForm from "../Signup/SignupForm";
 import signupBanner from '../../../images/signup-img.jpg';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearToastMessage, setToastMessage, signupUser } from "../../../store/slices/user.slices";
+import { setToastMessage, signupUser } from "../../../store/slices/user.slices";
 import { RootState } from "../../../store/store";
 
 const Signup: React.FC = () => {
@@ -26,7 +26,6 @@ const Signup: React.FC = () => {
       
     } else if (error) {
       dispatch(setToastMessage({message: error, color: 'red'}));
-      // dispatch(clearToastMessage());
       console.error("Error signing up:", error);
     }
   }, [user, error, navigate]);

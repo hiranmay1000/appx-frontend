@@ -38,6 +38,35 @@
   font-weight: 500;
 }
 
+.folderBox:active {
+  background-color: #fff;
+  color: #e05947;
+  font-weight: 500;
+}
+
+
+.folderBox:focus {
+  background-color: #fff;
+  color: #65d8f5;
+  font-weight: 500;
+}
+
+.deleteVaultItem {
+  display: none;
+  color: #df786b;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.deleteVaultItem:hover {
+  color: red;
+}
+
+.folderBox:hover .deleteVaultItem {
+  display: block;
+}
+
 
 .modalWrapper {
   width: 75%;

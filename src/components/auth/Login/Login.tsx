@@ -30,6 +30,7 @@ const Login: React.FC = () => {
 
   const handleLoginSubmit = async (email: string, password: string) => {
     dispatch(loginUser({ email, password }));
+    email && setToastMessage('Logging you in...');
   };
 
   return (
