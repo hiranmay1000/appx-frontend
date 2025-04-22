@@ -75,7 +75,8 @@ const Coco: React.FC = () => {
 
     return (
         <div className={style.coco}>
-            <h1 className={style.title}>Coco SSD Model</h1>
+            <h1 className={style.title}>Smart detection app</h1>
+            <p className={style.title}>Powerd by <strong>COCO-SSD</strong> Model</p>
             <br />
             <div className={style.uploadImageSection}>
                 {showPreview ? (
@@ -118,16 +119,23 @@ const Coco: React.FC = () => {
                         </div>
                     </>
                 ) : (
-                    <div className={style.uploadImage} onClick={handleClick}>
-                        <p>Upload an image ╋</p>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            ref={inputRef}
-                            className={style.fileInput}
-                            onChange={handleImageUpload}
-                        />
-                    </div>
+                    <>
+                        <div className={style.uploadImage} onClick={handleClick}>
+                            <p>Upload an image ╋</p>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                ref={inputRef}
+                                className={style.fileInput}
+                                onChange={handleImageUpload}
+                            />
+                        </div>
+                        <br />
+                        <br />
+                        <p style={{ fontWeight: "500", textAlign: "center", padding: "0 150px" }}>
+                            Upload any image and watch <u>AI</u> in action! This smart detection app, powered by the <strong>COCO-SSD model</strong>, quickly identifies and labels objects—like <strong>people, pets, and vehicles</strong>—with <em>precision</em>. Perfect for developers, students, or curious minds exploring the power of real-time machine learning. Try it now!
+                        </p>
+                    </>
                 )}
             </div>
             <br />
