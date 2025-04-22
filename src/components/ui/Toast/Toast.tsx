@@ -7,7 +7,7 @@ interface ToastProps {
   duration?: number;
 }
 
-const Toast: React.FC<ToastProps> = ({ message: incomingMessage, color = 'red', duration = 5000 }) => {
+const Toast: React.FC<ToastProps> = ({ message: incomingMessage, color = 'blue', duration = 5000 }) => {
   const [message, setMessage] = useState<string | "">("");
   const [visible, setVisible] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);

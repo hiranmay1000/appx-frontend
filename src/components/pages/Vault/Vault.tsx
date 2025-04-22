@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import style from "./Vault.module.css";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Modal } from "../../ui";
 import folderCreateBanner from "../../../images/create-folder-banner.jpg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { API_URL } from "../../../config";
+
+import style from "./Vault.module.css";
 
 // ----------------------
 // Type Definitions
@@ -43,10 +45,10 @@ const Vault: React.FC = () => {
     // ----------------------
     // Fetch vault items
     // ----------------------
-    const fetchItems = async () => {
+    const fetchItems = useCallback(async () => {
         if (!user?._id) return;
         try {
-            const res = await axios.get(`http://localhost:4000/api/vault/${user._id}`, {
+            const res = await axios.get(`${API_URL}/vault/${user._id}`, {
                 params: { parentId: currentFolder?._id || null },
             });
 
@@ -54,18 +56,18 @@ const Vault: React.FC = () => {
         } catch (err) {
             console.error("Error fetching vault items:", err);
         }
-    };
+    }, [currentFolder, user]);
 
     useEffect(() => {
         fetchItems();
-    }, [currentFolder, user]);
+    }, [fetchItems]);
 
     // ----------------------
     // Folder creation
     // ----------------------
     const handleCreateFolder = async () => {
         try {
-            await axios.post("http://localhost:4000/api/vault/folder", {
+            await axios.post(`${API_URL}/vault/folder`, {
                 name: folderName || "New Folder",
                 parentId: currentFolder?._id || null,
                 userId: user?._id,
@@ -92,7 +94,7 @@ const Vault: React.FC = () => {
         const files = validateFiles.filter(file => file.type || file.size > 0);
 
 
-        if (files.length < files.length) {
+        if (files.length < validateFiles.length) {
             alert("Some folders were excluded. Only files can be uploaded.");
         }
 
@@ -103,7 +105,7 @@ const Vault: React.FC = () => {
         formData.append("userId", user?._id || "");
 
         try {
-            await axios.post("http://localhost:4000/api/vault/upload", formData, {
+            await axios.post(`${API_URL}/vault/upload`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             await fetchItems();
@@ -133,7 +135,7 @@ const Vault: React.FC = () => {
 
     const handleDeleteClick = async (itemId: string, type: 'folder' | 'file') => {
         try {
-            const response = await axios.delete('http://localhost:4000/api/vault/delete', {
+            const response = await axios.delete(`${API_URL}/vault/delete`, {
                 data: {
                     itemId,
                     type
@@ -142,7 +144,7 @@ const Vault: React.FC = () => {
 
             if (response.status === 200) {
                 fetchItems();
-                setVaultItems((prevItems) => prevItems.filter(item => item._id !== itemId));
+                // setVaultItems((prevItems) => prevItems.filter(item => item._id !== itemId));
             }
 
         } catch (error) {
@@ -154,7 +156,7 @@ const Vault: React.FC = () => {
 
     const handleFileClick = (file: VaultFile) => {
         setShowImageModal(true);
-        setImgPath('http://localhost:4000/api' + file.filePath);
+        setImgPath(`${API_URL}` + file.filePath);
     }
 
 
@@ -265,6 +267,9 @@ const Vault: React.FC = () => {
                     </div>
                 ))}
             </div>
+
+            <br />
+            <br />
         </div>
     );
 };

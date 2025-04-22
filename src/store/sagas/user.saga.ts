@@ -2,6 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import { setToastMessage, setUserData, setUserError } from '../slices/user.slices';
 import { PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
+import { API_URL } from '../../config';
 
 interface signupPayload {
   username: string;
@@ -22,17 +23,17 @@ interface loginPayload {
 // SIGNUP SAGA
 function* handleSignup(action: PayloadAction<signupPayload>): Generator<any, void, any> {
   try {
-    const { username, email, password, image } = action.payload;  
-    
+    const { username, email, password, image } = action.payload;
+
     const formData = new FormData();
     formData.append('username', username);
     formData.append('email', email);
     formData.append('password', password);
     if (image) {
       formData.append('image', image);
-    }    
+    }
 
-    const response = yield call(axios.post, 'http://localhost:4000/api/signup', formData, {
+    const response = yield call(axios.post, `${API_URL}/signup`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -40,10 +41,9 @@ function* handleSignup(action: PayloadAction<signupPayload>): Generator<any, voi
 
     if (response.status === 201 || response.status === 200) {
       const user = response.data.user;
-      console.log("User signed up successfully:", user);
       yield put(setToastMessage({ message: 'Signup successful!', color: 'green' }));
-      
-      yield put(setUserData(user));     
+
+      yield put(setUserData(user));
     }
   } catch (error: any) {
     yield put(setUserError(error.response?.data?.message || 'Signup failed'));
@@ -51,18 +51,16 @@ function* handleSignup(action: PayloadAction<signupPayload>): Generator<any, voi
 }
 
 
-
-
 // LOGIN SAGA
 function* handleLogin(action: PayloadAction<loginPayload>): Generator<any, void, any> {
   try {
     const { email, password } = action.payload;
 
-    const response = yield call(axios.post, 'http://localhost:4000/api/login', { email, password });
+    const response = yield call(axios.post, `${API_URL}/login`, { email, password });
 
     if (response.status === 200) {
-      const user = response.data.user; 
-      
+      const user = response.data.user;
+
       yield put(setUserData(user));
     }
   } catch (error) {
@@ -80,7 +78,7 @@ function* handleGetUserData(action: PayloadAction<GetUserPayload>): Generator<an
   try {
     const { email } = action.payload;
 
-    const response = yield call(axios.get, `http://localhost:4000/api/users/${email}`);
+    const response = yield call(axios.get, `${API_URL}/users/${email}`);
     if (response.status !== 200) {
       throw new Error('Failed to fetch user data');
     }
@@ -92,7 +90,8 @@ function* handleGetUserData(action: PayloadAction<GetUserPayload>): Generator<an
     if (error instanceof AxiosError) {
       yield put(setUserError(error.response?.data?.message || 'Failed to fetch user data'));
     } else {
-      yield put(setUserError('An unknown error occurred'));}
+      yield put(setUserError('An unknown error occurred'));
+    }
   }
 }
 
@@ -102,7 +101,7 @@ function* handleChangePassword(action: PayloadAction<{ email: string; oldPasswor
   try {
     const { email, oldPassword, newPassword } = action.payload;
 
-    const response = yield call(axios.post, 'http://localhost:4000/api/change-password', { email, oldPassword, newPassword });
+    const response = yield call(axios.post, `${API_URL}/change-password`, { email, oldPassword, newPassword });
 
     if (response.status === 200) {
       // Dispatch success message to show toast
@@ -125,18 +124,18 @@ function* handleChangePassword(action: PayloadAction<{ email: string; oldPasswor
 // EDIT IMAGE SAGA
 function* handleEditImage(action: PayloadAction<{ image: File }>): Generator<any, void, any> {
   try {
-    const { image } = action.payload;  
-    
-    const formData = new FormData();
-    formData.append('image', image);    
+    const { image } = action.payload;
 
-    const response = yield call(axios.put, 'http://localhost:4000/api/profile/edit-image', formData, {
+    const formData = new FormData();
+    formData.append('image', image);
+
+    const response = yield call(axios.put, `${API_URL}/profile/edit-image`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
 
-    if (response.status === 200) {      
+    if (response.status === 200) {
       yield put(setToastMessage({ message: 'Image updated successfully!', color: 'green' }));
     }
   } catch (error) {
@@ -153,4 +152,4 @@ function* handleEditImage(action: PayloadAction<{ image: File }>): Generator<any
 
 
 
-export { handleGetUserData, handleLogin, handleSignup, handleChangePassword, handleEditImage};
+export { handleGetUserData, handleLogin, handleSignup, handleChangePassword, handleEditImage };

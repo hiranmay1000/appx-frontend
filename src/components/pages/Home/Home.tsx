@@ -1,9 +1,10 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Footer, Navbar } from '../../layout';
 import React from 'react';
-import style from './Home.module.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
+
+import style from './Home.module.css';
 
 const Home: React.FC = () => {
   const location = useLocation();

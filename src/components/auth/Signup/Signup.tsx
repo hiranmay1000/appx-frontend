@@ -28,7 +28,7 @@ const Signup: React.FC = () => {
       dispatch(setToastMessage({message: error, color: 'red'}));
       console.error("Error signing up:", error);
     }
-  }, [user, error, navigate]);
+  }, [user, error, navigate, dispatch]);
 
   return (
         <>

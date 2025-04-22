@@ -24,15 +24,22 @@
 }
 
 .hoverText {
+    width: 130px;
+    height: 130px;
+    font-size: 25px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: #646464;
     padding: 6px 12px;
     border-radius: 10px;
     opacity: 0;
     pointer-events: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .imageWrapper:hover img {

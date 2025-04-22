@@ -15,11 +15,10 @@ const Welcome: React.FC = () => {
             </p>
             <br/>
             <div>
-                <Button onClick={() => navigate('/dashboard')}>Dashboard</Button>
-                <Button onClick={() => navigate('/vault')}>Vault 🗃️</Button>
+                <Button onClick={() => navigate('/dashboard')}>Dashboard 📈</Button>
             </div>
         </div>
-    );
+    )
 }
 
 export default Welcome;

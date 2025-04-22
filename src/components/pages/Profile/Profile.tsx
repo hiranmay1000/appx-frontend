@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearToastMessage, logoutUser, setToastMessage } from '../../../store/slices/user.slices';
 import { RootState } from '../../../store/store';
 import { changePassword } from '../../../store/slices/user.slices';
+import { API_URL } from '../../../config';
 
 const Profile: React.FC = () => {
   const { user, toastMessage, toastColor } = useSelector((state: RootState) => state.users);
@@ -44,8 +45,8 @@ const Profile: React.FC = () => {
     <>
       <div className={style.profileContent}>
         <div className={style.imageWrapper}>
-          <img src={user?.image} alt={user?.username} onClick={handleEditImage} />
-          <p className={style.hoverText}>Edit ✎</p>
+          <img src={`${API_URL}${user?.image}`} alt={user?.username} onClick={handleEditImage} />
+          <p className={style.hoverText}>Edit Image✎</p>
         </div>
 
         <br />
@@ -77,8 +78,7 @@ const Profile: React.FC = () => {
         <p>_____________________</p>
         <div>
           <Button onClick={() => navigate('/')}>Home 🏠︎</Button>
-          <Button onClick={() => navigate('/dashboard')}>Dashboard 📑</Button>
-          <Button onClick={() => navigate('/vault')}>Vault </Button>
+          <Button onClick={() => navigate('/dashboard')}>Dashboard 📈</Button>
           <Button onClick={handleLogout} background='red'>Logout ➜</Button>
         </div>
       </div>

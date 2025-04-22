@@ -1,0 +1,88 @@
+.coco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    color: #013048;
+}
+
+.coco .title,
+.predictions {
+    border: 1px solid #013048;
+    padding: 5px 15px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px #0433657e;
+}
+
+.predictions li {
+    list-style: none;
+}
+
+.predictions {
+    padding: 25px;
+    background-color: azure;
+}
+
+.coco .subtitle {
+    color: #013048;
+}
+
+
+.uploadImageSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.uploadImageSection img {
+    border-radius: 25px;
+    box-shadow: 0 0 15px #0433657e;
+
+}
+
+.uploadImageSection .uploadImage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+    height: 230px;
+    border: 3px solid #013048;
+    border-radius: 35px;
+    cursor: pointer;
+    color: #013048;
+    font-weight: bold;
+    text-align: center;
+}
+
+.uploadImage:hover {
+    background-color: #fff;
+}
+
+.fileInput {
+    display: none;
+}
+
+.previewImage {
+    max-width: 300px;
+    margin-top: 20px;
+}
+
+.previewContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border: 3px solid #013048;
+    box-shadow: 0 0 25px #0433657e;
+    background-color: #fff;
+    border-radius: 25px ;
+    padding: 25px;
+}
+
+.previewContainer div {
+    margin: 0 15px;
+}

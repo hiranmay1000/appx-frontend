@@ -4,8 +4,12 @@
     align-items: center;
     justify-content: center;
     height: calc(100vh - 100px);
-    background-image: url(../../../images/error-page2.jpg);
-    background-size: 100%;
-    background-position: center;    
-    background-repeat: no-repeat;
+}
+
+.errorImage img{
+    width: 300px;
+    height: 300px;
+    border-radius: 55px;
+    box-shadow: 0 0 45px rgba(5, 67, 79, 0.5);
+    object-fit: cover;
 }

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import style from './EditImage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { Button } from '../../ui';
 import { editImage } from '../../../store/slices/user.slices';
+import { API_URL } from '../../../config';
+
+import style from './EditImage.module.css';
 
 const EditImage: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.users);
@@ -17,12 +19,12 @@ const EditImage: React.FC = () => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedFile(file);
+      setIsUploaded(true);
       setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
   const handleUploadClick = () => {
-    setIsUploaded(true);
   };
 
   const handleChangeClick = () => {
@@ -34,24 +36,29 @@ const EditImage: React.FC = () => {
 
   return (
     <div className={style.editImagePage}>
-      <div className={style.editImageContainer}>
-        <div >
-          <img src={user?.image} alt={user?.username} className={style.previewImage} />
+      <div>
+        <div className={style.editImageContainer}>
+          <div >
+            <img src={`${API_URL}${user?.image}`} alt={user?.username} className={style.previewImage} />
+          </div>
+
+          {isUploaded && (
+            <>⇄
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                {previewUrl && <img src={previewUrl} alt="Preview" className={style.previewImage} />}
+              </div>
+            </>
+          )}
         </div>
 
-        {isUploaded && (
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent:'center'}}>
-            {previewUrl && <img src={previewUrl} alt="Preview" className={style.previewImage} />}
-          </div>
-        )}
+        <div className={style.editImageButton}>
+          {selectedFile ? (
+            <Button onClick={handleChangeClick} background='brown'>Change Image</Button>
+          ) : (
+            <input type="file" name="image" id="image" onChange={handleFileChange} onClick={handleUploadClick} />
+          )}
+        </div>
       </div>
-
-      {selectedFile ? (
-          <Button onClick={handleChangeClick} background='brown'>Change Image</Button>
-        ) : (
-          <input type="file" name="image" id="image" onChange={handleFileChange} onClick={handleUploadClick}/>
-        // <Button onClick={handleUploadClick}>Upload</Button>
-      )}
     </div>
   );
 };
