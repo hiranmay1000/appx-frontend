@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Toast } from '../../ui';
 import style from './Profie.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearToastMessage, logoutUser, setToastMessage } from '../../../store/slices/user.slices';
 import { RootState } from '../../../store/store';
@@ -12,8 +12,8 @@ const Profile: React.FC = () => {
   const { user, toastMessage, toastColor } = useSelector((state: RootState) => state.users);
 
   const [isChangePassword, setChangePassword] = useState<boolean>(false);
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>(''); 
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,15 +40,11 @@ const Profile: React.FC = () => {
     navigate('/edit-image');
   }
 
-  useEffect(() => {
-    const src = `${API_URL}${user?.image}` || 'https://via.placeholder.com/150';
-  }, [user])
-
   return (
     <>
       <div className={style.profileContent}>
         <div className={style.imageWrapper}>
-          <img src={src} alt={user?.username} onClick={handleEditImage} />
+          <img src={`${API_URL}${user?.image}` } alt={user?.username} onClick={handleEditImage} />
           <p className={style.hoverText}>Edit Image✎</p>
         </div>
 

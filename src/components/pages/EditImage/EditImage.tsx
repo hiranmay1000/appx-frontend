@@ -46,7 +46,9 @@ const EditImage: React.FC = () => {
 
   const handleUpdateClick = () => {
     if (selectedFile) {
-      dispatch(editImage({ image: selectedFile, userId: user?._id!, oldImagePath: user?.image!}));
+      dispatch(editImage({ image: selectedFile, userId: user?._id!, oldImagePath: user?.image! }));
+      setIsUploaded(false);
+      setPreviewUrl(null);
     }
     setSelectedFile(null);
   };
@@ -57,7 +59,7 @@ const EditImage: React.FC = () => {
         <h1 className={style.title}>Change Profile Picture</h1>
         <div className={style.editImageContainer}>
           <div >
-            <img src={`${API_URL}${user?.image}`} alt={user?.username} className={style.previewImage} />
+            <img src={`${API_URL}${user?.image}`} alt={user?.username} className={style.previewImage}/>
           </div>
 
           {isUploaded && (
@@ -79,7 +81,6 @@ const EditImage: React.FC = () => {
               <Button onClick={handleUpdateClick} background='brown'>Update Image</Button>
             </>
           ) : (
-            // <input type="file" name="image" id="image" ref={inputRef} onChange={handleFileChange} onClick={handleUploadClick} />
             <div className={style.uploadImage} onClick={handleUploadClick}>
               <p>Select image ╋</p>
               <input

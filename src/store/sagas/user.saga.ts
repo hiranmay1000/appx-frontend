@@ -83,8 +83,8 @@ function* handleGetUserData(action: PayloadAction<GetUserPayload>): Generator<an
       throw new Error('Failed to fetch user data');
     }
 
-    const data = response.data;
-    yield put(setUserData(data));
+    const user = response.data;
+    yield put(setUserData(user));
 
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -137,15 +137,14 @@ function* handleEditImage(action: PayloadAction<{ image: File, userId: string, o
       },
     });
 
-    if (response.status === 200) {
-      yield put(setToastMessage({ message: 'Image updated successfully!', color: 'green' }));
+    if (response.status === 200) {      
+      yield put(setUserData(response.data.user));
+      yield put(setToastMessage({ message: response.data.user.message, color: 'green' }));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
-      yield put(setUserError(error.response?.data?.message || 'Image update failed'));
-      yield put(setToastMessage({ message: 'Failed to update image. Try again!', color: 'red' }));
+      yield put(setToastMessage({ message: error.response?.data?.message || 'Image update failed', color: 'red' }));
     } else {
-      yield put(setUserError('An unknown error occurred'));
       yield put(setToastMessage({ message: 'Failed to update image. Try again!', color: 'red' }));
     }
   }
