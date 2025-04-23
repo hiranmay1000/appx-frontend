@@ -58,8 +58,7 @@ const Coco: React.FC = () => {
         if (file) {
             setImageSrc(URL.createObjectURL(file));
             setShowPreview(true);
-            setDetectionDone(false); // Reset detection status
-
+            setDetectionDone(false);
         }
     };
 

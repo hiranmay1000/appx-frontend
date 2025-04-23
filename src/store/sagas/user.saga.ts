@@ -122,12 +122,14 @@ function* handleChangePassword(action: PayloadAction<{ email: string; oldPasswor
 }
 
 // EDIT IMAGE SAGA
-function* handleEditImage(action: PayloadAction<{ image: File }>): Generator<any, void, any> {
+function* handleEditImage(action: PayloadAction<{ image: File, userId: string, oldImagePath: string }>): Generator<any, void, any> {
   try {
-    const { image } = action.payload;
+    const { image, userId, oldImagePath } = action.payload;
 
     const formData = new FormData();
     formData.append('image', image);
+    formData.append('userId', userId);
+    formData.append('oldImagePath', oldImagePath);
 
     const response = yield call(axios.put, `${API_URL}/profile/edit-image`, formData, {
       headers: {

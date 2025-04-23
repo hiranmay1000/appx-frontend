@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Toast } from '../../ui';
 import style from './Profie.module.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearToastMessage, logoutUser, setToastMessage } from '../../../store/slices/user.slices';
 import { RootState } from '../../../store/store';
@@ -37,15 +37,18 @@ const Profile: React.FC = () => {
 
   const handleEditImage = () => {
     console.log('Edit image clicked');
-    
     navigate('/edit-image');
   }
+
+  useEffect(() => {
+    const src = `${API_URL}${user?.image}` || 'https://via.placeholder.com/150';
+  }, [user])
 
   return (
     <>
       <div className={style.profileContent}>
         <div className={style.imageWrapper}>
-          <img src={`${API_URL}${user?.image}`} alt={user?.username} onClick={handleEditImage} />
+          <img src={src} alt={user?.username} onClick={handleEditImage} />
           <p className={style.hoverText}>Edit Image✎</p>
         </div>
 

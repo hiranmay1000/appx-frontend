@@ -19,15 +19,15 @@
 }
 
 .cardContainer:hover .cardHeader{
-    background-color: #063d78;
-    transition: all 0.3s ease-in-out;
+    background-color: #062d58;
+    transition: all 0.1s ease-in-out;
 }
 .cardContainer:hover .cardBody{
-    transition: all 0.3s ease-in-out;
+    transition: all 0.1s ease-in-out;
 }
 .cardContainer:hover .cardFooter{
     background-color: #aed6fb;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.1s ease-in-out;
 }
 
 .cardHeader{
@@ -52,5 +52,13 @@
     height: 40px;
     background-color: #74c6ef;
     line-height: 40px;
+    transition: all 0.1s ease-in-out;
+    position: relative;
+    bottom: -30px;
+}
+
+.cardContainer:hover .cardFooter{
+    bottom: 0px;
+    transition: all 0.1s ease-in-out;
 }
 
