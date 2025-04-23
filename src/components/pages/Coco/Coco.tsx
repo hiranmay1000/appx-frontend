@@ -75,7 +75,7 @@ const Coco: React.FC = () => {
     return (
         <div className={style.coco}>
             <h1 className={style.title}>Smart detection app</h1>
-            <p className={style.title}>Powerd by <strong>COCO-SSD</strong> Model</p>
+            <p className={style.title}>Powered by <strong>COCO-SSD</strong> Model</p>
             <br />
             <div className={style.uploadImageSection}>
                 {showPreview ? (
