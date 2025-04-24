@@ -69,7 +69,7 @@ export const usersSlice = createSlice({
             state.toastMessage = null;
             state.toastColor = 'red';
         },
-        editImage: (state, action: PayloadAction<{ image: File }>) => {
+        editImage: (state, action: PayloadAction<{ image: File, userId: string, oldImagePath: string}>) => {
             state.isLoading = true;
             state.error = null;
         }

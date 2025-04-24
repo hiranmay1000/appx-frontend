@@ -83,8 +83,8 @@ function* handleGetUserData(action: PayloadAction<GetUserPayload>): Generator<an
       throw new Error('Failed to fetch user data');
     }
 
-    const data = response.data;
-    yield put(setUserData(data));
+    const user = response.data;
+    yield put(setUserData(user));
 
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -122,12 +122,14 @@ function* handleChangePassword(action: PayloadAction<{ email: string; oldPasswor
 }
 
 // EDIT IMAGE SAGA
-function* handleEditImage(action: PayloadAction<{ image: File }>): Generator<any, void, any> {
+function* handleEditImage(action: PayloadAction<{ image: File, userId: string, oldImagePath: string }>): Generator<any, void, any> {
   try {
-    const { image } = action.payload;
+    const { image, userId, oldImagePath } = action.payload;
 
     const formData = new FormData();
     formData.append('image', image);
+    formData.append('userId', userId);
+    formData.append('oldImagePath', oldImagePath);
 
     const response = yield call(axios.put, `${API_URL}/profile/edit-image`, formData, {
       headers: {
@@ -135,15 +137,14 @@ function* handleEditImage(action: PayloadAction<{ image: File }>): Generator<any
       },
     });
 
-    if (response.status === 200) {
-      yield put(setToastMessage({ message: 'Image updated successfully!', color: 'green' }));
+    if (response.status === 200) {      
+      yield put(setUserData(response.data.user));
+      yield put(setToastMessage({ message: response.data.user.message, color: 'green' }));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
-      yield put(setUserError(error.response?.data?.message || 'Image update failed'));
-      yield put(setToastMessage({ message: 'Failed to update image. Try again!', color: 'red' }));
+      yield put(setToastMessage({ message: error.response?.data?.message || 'Image update failed', color: 'red' }));
     } else {
-      yield put(setUserError('An unknown error occurred'));
       yield put(setToastMessage({ message: 'Failed to update image. Try again!', color: 'red' }));
     }
   }

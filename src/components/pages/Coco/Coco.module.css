@@ -57,6 +57,7 @@
     font-weight: bold;
     text-align: center;
     background-color: #fff;
+    transition: all 0.3s ease;
 }
 
 .uploadImage:hover {
@@ -82,8 +83,10 @@
     background-color: #fff;
     border-radius: 25px ;
     padding: 25px;
+    transition: all 1s ease;
 }
 
 .previewContainer div {
     margin: 0 15px;
+    transition: all 1s ease;
 }

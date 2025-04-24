@@ -17,7 +17,7 @@ const Modal: React.FC<ModalProps> = ({ title, src, children, boxHeight, alt }) =
           <img src={src} alt={alt} />
         </div>
         <div className={style.rightSection}>
-          <div className={style.modalContent} style={{height:`${boxHeight}`}}>
+          <div className={style.modalContent}>
             <h2>{title}</h2>
             {children}
           </div>

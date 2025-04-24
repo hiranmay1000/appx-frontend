@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Button, Toast } from '../../ui';
+import { Button, Modal, Toast } from '../../ui';
 import style from './Profie.module.css';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,9 @@ const Profile: React.FC = () => {
   const { user, toastMessage, toastColor } = useSelector((state: RootState) => state.users);
 
   const [isChangePassword, setChangePassword] = useState<boolean>(false);
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [showDeleteWarningModal, setShowDeleteWarningModal] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -37,13 +38,25 @@ const Profile: React.FC = () => {
 
   const handleEditImage = () => {
     console.log('Edit image clicked');
-    
     navigate('/edit-image');
+  }
+
+  const handleDeleteClick = () => {
+    setShowDeleteWarningModal(true);
   }
 
   return (
     <>
       <div className={style.profileContent}>
+        {showDeleteWarningModal && (
+          <Modal title='Are you sure?' boxHeight='100%' src={`${API_URL}${user?.image}`}>
+            <div>
+              <Button background='green' onClick={() => setShowDeleteWarningModal(false)}>Yes</Button>
+              <Button background='brown' onClick={() => setShowDeleteWarningModal(false)}>Cancel</Button>
+            </div>
+          </Modal>
+
+        )}
         <div className={style.imageWrapper}>
           <img src={`${API_URL}${user?.image}`} alt={user?.username} onClick={handleEditImage} />
           <p className={style.hoverText}>Edit Image✎</p>
@@ -72,7 +85,10 @@ const Profile: React.FC = () => {
             <Button background={'red'} onClick={() => setChangePassword(false)}>Cancel</Button>
           </div>
         ) : (
-          <Button onClick={() => setChangePassword(true)}>Change Password</Button>
+          <div>
+            <Button onClick={() => setChangePassword(true)}>Change Password</Button>
+            <Button background='brown' onClick={handleDeleteClick}>Delete Profile</Button>
+          </div>
         )}
 
         <p>_____________________</p>

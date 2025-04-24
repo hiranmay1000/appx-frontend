@@ -13,9 +13,10 @@ const Error: React.FC = () => {
             </div>
             <br />
             <h1>Page not found!</h1>
-            <Link to="/">
-                <Button background='green'>Home</Button>
-            </Link>
+            <div>
+                <Link to="/dashboard"><Button>Dashboard</Button></Link>
+                <Link to="/"><Button background='green'>Home</Button></Link>
+            </div>
         </div>
     );
 }
