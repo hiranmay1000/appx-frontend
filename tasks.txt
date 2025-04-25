@@ -1,0 +1,2 @@
+1. Notification problem
+2. News cards add on and implement it's features
