@@ -32,7 +32,7 @@ const Signup: React.FC = () => {
 
   return (
         <>
-          <Modal title="Signup" src = {signupBanner} boxHeight="80%">
+          <Modal  title="Signup" src = {signupBanner} boxHeight="80%">
           {isLoading ? (
             <div style={{ textAlign: 'center', padding: '2rem' }}>
               <Spinner />
