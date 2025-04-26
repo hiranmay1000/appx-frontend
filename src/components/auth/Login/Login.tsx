@@ -6,36 +6,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../store/slices/user.slices";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../store/store";
+import { useToast } from "../../../context/ToastContext";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, error, isLoading } = useSelector((state: RootState) => state.users);
+  const {showToast} = useToast();
 
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [toastColor, setToastColor] = useState('red');
+  const { user, error, isLoading } = useSelector((state: RootState) => state.users);
 
   useEffect(() => {
     if (user?.email) {
-      setToastColor('green');
-      setToastMessage('Login successful!');
-      setTimeout(() => navigate('/'), 1000);
+      navigate('/');
     } else if (error) {
-      setToastColor('red');
-      setToastMessage(error);
-    }
-    setTimeout(() => setToastMessage(null), 5000);
-    
+      showToast(error, 'error');
+    }    
   }, [user, error, navigate]);
 
   const handleLoginSubmit = async (email: string, password: string) => {
     dispatch(loginUser({ email, password }));
-    email && setToastMessage('Logging you in...');
   };
 
   return (
     <>
-      <Modal title="Login" src={loginBanner} boxHeight="65%">
+      <Modal title="Login" src={loginBanner}>
         {isLoading ? (
           <div style={{ textAlign: 'center', padding: '2rem' }}>
             <Spinner />
@@ -46,7 +40,7 @@ const Login: React.FC = () => {
         )}      
       </Modal>
 
-      {toastMessage && <Toast key={Date.now()} message={toastMessage} color={toastColor} />}
+      <Toast />
       </>
   );
 };

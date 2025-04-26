@@ -1,2 +1,4 @@
-1. Notification problem
-2. News cards add on and implement it's features
+News cards implement it's features
+Toast issue (Properly not working)
+Delete profile api setup
+tensorflow localize

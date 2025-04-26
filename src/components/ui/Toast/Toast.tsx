@@ -1,48 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import styles from './Toast.module.css';
+import React from "react";
+import styles from './Toast.module.css'; // Or your own styles
+import { useToast } from "../../../context/ToastContext";
 
-interface ToastProps {
-  message?: string | "";
-  color?: string;
-  duration?: number;
-}
-
-const Toast: React.FC<ToastProps> = ({ message: incomingMessage, color = 'blue', duration = 5000 }) => {
-  const [message, setMessage] = useState<string | "">("");
-  const [visible, setVisible] = useState(false);
-  const [fadeOut, setFadeOut] = useState(false);
-
-  useEffect(() => {
-    if (!incomingMessage) return;
-
-    // Set internal message
-    setMessage(incomingMessage);
-    setVisible(true);
-    setFadeOut(false);
-
-    const fadeTimer = setTimeout(() => setFadeOut(true), duration - 250);
-    const removeTimer = setTimeout(() => {
-      setFadeOut(false);
-      setVisible(false);
-      setMessage("");
-    }, duration);
-
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(removeTimer);
-    };
-  }, [incomingMessage, duration]);
-
-  if (!visible || !message) return null;
+const ToastContainer = () => {
+  const { toasts } = useToast();
 
   return (
-    <div
-      className={`${styles.toast} ${fadeOut ? styles.fadeOut : ''}`}
-      style={{ backgroundColor: color }}
-    >
-      {message}
+    <div className={styles.toastContainer}>
+      {toasts.map((toast) => (
+        <div key={toast.id} className={`${styles.toast} ${styles[toast.type]}`}>
+          {toast.message}
+        </div>
+      ))}
     </div>
   );
 };
 
-export default Toast;
+export default ToastContainer;

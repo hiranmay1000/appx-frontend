@@ -3,6 +3,7 @@ import { setToastMessage, setUserData, setUserError } from '../slices/user.slice
 import { PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { API_URL } from '../../config';
+import { showToast } from '../slices/toast.slice';
 
 interface signupPayload {
   username: string;
@@ -41,12 +42,13 @@ function* handleSignup(action: PayloadAction<signupPayload>): Generator<any, voi
 
     if (response.status === 201 || response.status === 200) {
       const user = response.data.user;
-      yield put(setToastMessage({ message: 'Signup successful!', color: 'green' }));
+      yield put(showToast({ message: response.data.message, type: 'success' }));
 
       yield put(setUserData(user));
     }
   } catch (error: any) {
     yield put(setUserError(error.response?.data?.message || 'Signup failed'));
+    yield put(showToast({ message: error.response?.data.message, type: 'error' }));
   }
 }
 
@@ -60,18 +62,19 @@ function* handleLogin(action: PayloadAction<loginPayload>): Generator<any, void,
 
     if (response.status === 200) {
       const user = response.data.user;
-
       yield put(setUserData(user));
+      yield put(showToast({ message: "Login successful", type: 'success' }));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
       const errorMessage = error.response?.data?.message || 'Login failed';
-      yield put(setUserError(errorMessage));
+      yield put(showToast({ message: errorMessage, type: 'error' }));
     } else {
-      yield put(setUserError('An unknown error occurred'));
+      yield put(showToast({ message: 'An unknown error occurred', type: 'error' }));
     }
   }
 }
+
 
 // FETCH USERDATA 
 function* handleGetUserData(action: PayloadAction<GetUserPayload>): Generator<any, void, any> {
@@ -137,7 +140,7 @@ function* handleEditImage(action: PayloadAction<{ image: File, userId: string, o
       },
     });
 
-    if (response.status === 200) {      
+    if (response.status === 200) {
       yield put(setUserData(response.data.user));
       yield put(setToastMessage({ message: response.data.user.message, color: 'green' }));
     }

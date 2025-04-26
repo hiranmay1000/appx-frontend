@@ -8,7 +8,7 @@ const ForgotPassword: React.FC = () => {
     }
     return (
         <>
-            <Modal title="Reset Your Password" src = {forgotPassWordBanner} boxHeight="65%">
+            <Modal title="Reset Your Password" src = {forgotPassWordBanner}>
                 <ForgotPasswordForm onSubmit={handleForgotPassSubmit} />
             </Modal>
         </>

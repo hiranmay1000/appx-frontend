@@ -39,3 +39,27 @@ form{
   bottom: 5%;
 }
 
+.passwordWarnings{
+  margin-bottom: 7px;
+  font-size: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  background-color: #bcf3ff;
+  padding: 0 3px;
+  border-radius: 3px;
+}
+
+.previewImgContainer{
+  position: absolute;
+  left: calc(50% - 35px);
+}
+
+.previewImgContainer img{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid #cbf5ff;
+  object-fit: cover;
+}
+

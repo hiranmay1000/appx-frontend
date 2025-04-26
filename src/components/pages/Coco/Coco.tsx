@@ -31,7 +31,6 @@ const Coco: React.FC = () => {
     const detectObjects = async (model: cocoSsd.ObjectDetection) => {
         if (imageRef.current) {
             const predictions = await model.detect(imageRef.current);
-            console.log('Predictions: ', predictions.length);
             setPredictions(predictions);
             setDetectionDone(true); // Mark detection as complete
         }

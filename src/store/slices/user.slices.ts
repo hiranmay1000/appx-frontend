@@ -44,7 +44,7 @@ export const usersSlice = createSlice({
             state.error = action.payload;
             state.isLoading = false;
         },
-        signupUser: (state, action: PayloadAction<{ username: string, email: string, password: string, image: File }>) => {
+        signupUser: (state, action: PayloadAction<{ username: string, email: string, password: string, image?: File }>) => {
             state.isLoading = true;
             state.error = null;
         },

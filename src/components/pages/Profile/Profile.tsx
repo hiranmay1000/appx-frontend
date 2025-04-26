@@ -9,7 +9,7 @@ import { changePassword } from '../../../store/slices/user.slices';
 import { API_URL } from '../../../config';
 
 const Profile: React.FC = () => {
-  const { user, toastMessage, toastColor } = useSelector((state: RootState) => state.users);
+  const { user } = useSelector((state: RootState) => state.users);
 
   const [isChangePassword, setChangePassword] = useState<boolean>(false);
   const [oldPassword, setOldPassword] = useState<string>('');
@@ -20,24 +20,19 @@ const Profile: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(setToastMessage({ message: 'Logout successfull', color: 'brown' }));
     setTimeout(() => {
       dispatch(logoutUser());
       navigate('/login');
       dispatch(clearToastMessage());
-    }, 2000);
+    }, 1000);
   };
 
   const handleChangePassword = async () => {
     dispatch(changePassword({ email: user?.email, oldPassword, newPassword }));
     setChangePassword(false);
-    setTimeout(() => {
-      dispatch(clearToastMessage());
-    }, 5000);
   };
 
   const handleEditImage = () => {
-    console.log('Edit image clicked');
     navigate('/edit-image');
   }
 
@@ -49,7 +44,7 @@ const Profile: React.FC = () => {
     <>
       <div className={style.profileContent}>
         {showDeleteWarningModal && (
-          <Modal title='Are you sure?' boxHeight='100%' src={`${API_URL}${user?.image}`}>
+          <Modal title='Are you sure?' outline={true} src={`${API_URL}${user?.image}`}>
             <div>
               <Button background='green' onClick={() => setShowDeleteWarningModal(false)}>Yes</Button>
               <Button background='brown' onClick={() => setShowDeleteWarningModal(false)}>Cancel</Button>
@@ -98,8 +93,6 @@ const Profile: React.FC = () => {
           <Button onClick={handleLogout} background='red'>Logout ➜</Button>
         </div>
       </div>
-
-      {toastMessage && <Toast message={toastMessage} color={toastColor} />}
     </>
   );
 };

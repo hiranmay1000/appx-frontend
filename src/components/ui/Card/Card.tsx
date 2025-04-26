@@ -7,9 +7,10 @@ interface CardTypes {
     desc: string;
     footer: string;
     onClick?: () => void;
+    src?: string
 }
 
-const Card: React.FC<CardTypes> = ({title, desc, footer, onClick}) => {
+const Card: React.FC<CardTypes> = ({title, desc, footer, onClick, src}) => {
     return (
         <div className={style.cardContainer} onClick={onClick}>
             <div className={style.cardHeader}>
@@ -17,6 +18,7 @@ const Card: React.FC<CardTypes> = ({title, desc, footer, onClick}) => {
             </div>
             <div className={style.cardBody}>
                 <p>{desc}</p>
+                <img src={src} alt="banner" />
             </div>
             <div className={style.cardFooter}>
                 <h3>{footer}</h3>

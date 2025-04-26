@@ -165,7 +165,7 @@ const Vault: React.FC = () => {
             {/* ------------------ Create Folder Modal ------------------ */}
             {showCreateFolderModal && (
                 <div className={style.modalWrapper}>
-                    <Modal title="Create New Folder" src={folderCreateBanner} boxHeight="50%">
+                    <Modal title="Create New Folder" src={folderCreateBanner}>
                         <div className={style.modalContent}>
                             <input
                                 type="text"
@@ -187,7 +187,7 @@ const Vault: React.FC = () => {
             {/* ------------------ Upload Files Modal ------------------ */}
             {showUploadFilesModal && (
                 <div className={style.modalWrapper}>
-                    <Modal title="Upload Files" src={folderCreateBanner} boxHeight="30%">
+                    <Modal title="Upload Files" src={folderCreateBanner}>
                         <div className={style.modalContent}>
                             <label style={{ cursor: "pointer", background: "lightgray", padding: "5px", marginRight: "5px", borderRadius: "5px" }}>
                                 Choose files
@@ -204,7 +204,7 @@ const Vault: React.FC = () => {
             {/* ------------------ Preview image Modal ------------------ */}
             {showImageModal && (
                 <div className={style.modalWrapper}>
-                    <Modal title="Image Preview" src={imgPath} boxHeight="50%">
+                    <Modal title="Image Preview" src={imgPath}>
                         <p></p>
                         <div className={style.modalContent}>
                             <Button onClick={() => setShowImageModal(false)} background="red" >Close</Button>

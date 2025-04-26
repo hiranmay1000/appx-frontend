@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './Modal.module.css';
 
 interface ModalProps {
   title: string;
   src: string;
   children: React.ReactNode;  
-  boxHeight: string;
   alt?: string | 'image-preview';
+  outline?: boolean;
 }
   
-const Modal: React.FC<ModalProps> = ({ title, src, children, boxHeight, alt }) => {
+const Modal: React.FC<ModalProps> = ({ title, src, children, alt, outline }) => {
+  const [border, setBorder] = useState<string>('')
+
+  useEffect(() => {
+    if(outline) {
+      setBorder('3px solid #004966');
+    }
+  }, [])
   return (
     <div className={style.modalWrapper}>
-      <div className={style.modalContainer}>
+      <div className={style.modalContainer} style={{border:`${border}`}}>
         <div className={style.leftSection}>
           <img src={src} alt={alt} />
         </div>
