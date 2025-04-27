@@ -1,4 +1,4 @@
-.modalWrapper{
+.modalWrapper {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -8,7 +8,7 @@
     z-index: 100;
 }
 
-.modalContainer{
+.modalContainer {
     width: 700px;
     min-height: 300px;
     border-radius: 25px;
@@ -16,21 +16,23 @@
     backdrop-filter: blur(10px);
     display: flex;
     user-select: none;
+    position: relative;
+    overflow: hidden;
 }
 
-.leftSection, .rightSection{
+.leftSection,
+.rightSection {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.leftSection img{
+.leftSection img {
     width: 100%;
-    border-radius: 25px 0px 0px 25px;
 }
 
-.modalContent{
+.modalContent {
     width: 70%;
     display: flex;
     align-items: center;
@@ -39,12 +41,12 @@
     text-align: center;
 }
 
-.modalContent h2{
+.modalContent h2 {
     font-size: 35px;
     margin-bottom: 15px;
 }
 
-input{
+input {
     height: 30px;
     margin: 5px 0;
     border: none;
@@ -54,3 +56,22 @@ input{
 }
 
 
+@media (max-width: 768px) {
+    .modalContainer {
+        flex-direction: column;
+        width: 350px;
+        min-height: 300px;
+    }
+
+    .rightSection {
+        height: 300px;
+        justify-content: center;
+        padding-bottom: 50px;
+    }
+
+    .leftSection img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+}

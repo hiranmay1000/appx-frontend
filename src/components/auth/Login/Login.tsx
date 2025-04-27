@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Modal, Spinner, Toast } from "../../ui";
 import LoginForm from "./LoginForm";
 import loginBanner from '../../../images/login-banner.jpg';
@@ -21,9 +21,10 @@ const Login: React.FC = () => {
     } else if (error) {
       showToast(error, 'error');
     }    
-  }, [user, error, navigate]);
+  }, [user, error, navigate, showToast]);
 
   const handleLoginSubmit = async (email: string, password: string) => {
+    console.log("Log in frontend!");
     dispatch(loginUser({ email, password }));
   };
 

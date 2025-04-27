@@ -5,6 +5,8 @@
     justify-content: center;
     flex-direction: column;
     height: calc(100vh - 100px);
+    padding: 0px 25px;
+    color: #09253b;
 }
 .imageWrapper {
     position: relative;
@@ -48,4 +50,10 @@
 
 .imageWrapper:hover .hoverText {
     opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .profileContent h5{
+        font-size: 15px;
+    }
 }

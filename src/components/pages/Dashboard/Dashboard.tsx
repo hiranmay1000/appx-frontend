@@ -1,10 +1,7 @@
 import React from 'react';
 import style from './Dashboard.module.css';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/store';
 import { Card } from '../../ui';
-import { API_URL } from '../../../config';
 import filesFolderBanner from '../../../images/file-folder-banner.jpg';
 import cocoImgBanner from '../../../images/vr-banner.svg';
 import chatbotBanner from '../../../images/chatbot-banner.jpg';
@@ -13,7 +10,6 @@ import qrBanner from '../../../images/qr-banner.jpg';
 
 
 const Dashboard: React.FC = () => {
-  const { user } = useSelector((state: RootState) => state.users);
   const navigate = useNavigate();
 
   return (

@@ -9,7 +9,7 @@ import { RootState } from "../../../store/store";
 import { useToast } from "../../../context/ToastContext";
 
 const Signup: React.FC = () => {
-  const {user, error, isLoading, toastMessage} = useSelector((state: RootState) => state.users);
+  const {user, error, isLoading} = useSelector((state: RootState) => state.users);
   const {showToast } = useToast();
 
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const Signup: React.FC = () => {
     } else if (error) {
       console.error("Error signing up:", error);
     }
-  }, [user, error, navigate, dispatch]);
+  }, [user, error, navigate, dispatch, showToast]);
 
   return (
         <>

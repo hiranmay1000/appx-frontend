@@ -3,7 +3,7 @@ import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import '@tensorflow/tfjs';
 import style from './Coco.module.css';
 import { Button, Spinner } from '../../ui';
-import errorImg from '../../../images/error-page2.jpg';
+import errorImg from '../../../images/error-page.jpg';
 
 const Coco: React.FC = () => {
     const imageRef = useRef<HTMLImageElement | null>(null); // For the image tag (for object detection)
@@ -32,7 +32,7 @@ const Coco: React.FC = () => {
         if (imageRef.current) {
             const predictions = await model.detect(imageRef.current);
             setPredictions(predictions);
-            setDetectionDone(true); // Mark detection as complete
+            setDetectionDone(true);
         }
     };
 
@@ -48,7 +48,18 @@ const Coco: React.FC = () => {
         }
     }, [imageSrc]);
 
-    const handleClick = () => {
+    const handleTryOtherClick = () => {
+        setShowPreview(false);
+        setImageSrc(null);
+        setPredictions([]);
+        setDetectionDone(false);
+        if (inputRef.current) {
+            inputRef.current.value = '';
+            inputRef.current.click();
+        }
+    }
+
+    const handleUploadClick = () => {
         inputRef.current?.click();
     };
 
@@ -89,7 +100,7 @@ const Coco: React.FC = () => {
                                 />
                             </div>
 
-                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <div className={style.predictionContainer} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 {predictions.length > 0 && (
                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                         <div className={style.predictions}>
@@ -103,13 +114,19 @@ const Coco: React.FC = () => {
                                             </ul>
                                         </div>
                                         <br />
-                                        <Button background='red' onClick={handleResetClick}>Reset</Button>
+                                        <div>
+                                            <Button background='red' onClick={handleResetClick}>Reset</Button>
+                                            <Button onClick={handleTryOtherClick}>Try Other</Button>
+                                        </div>
                                     </div>
                                 )}
                                 {detectionDone && predictions.length === 0 && (
                                     <>
                                         <p>No predictions found!</p>
-                                        <Button background='red' onClick={handleResetClick}>Reset</Button>
+                                        <div>
+                                            <Button background='red' onClick={handleResetClick}>Reset</Button>
+                                            <Button onClick={handleTryOtherClick}>Try Other</Button>
+                                        </div>
                                     </>
                                 )}
                                 {loading && <Spinner />}
@@ -118,7 +135,7 @@ const Coco: React.FC = () => {
                     </>
                 ) : (
                     <>
-                        <div className={style.uploadImage} onClick={handleClick}>
+                        <div className={style.uploadImage} onClick={handleUploadClick}>
                             <p>Upload an image ╋</p>
                             <input
                                 type="file"
@@ -130,7 +147,7 @@ const Coco: React.FC = () => {
                         </div>
                         <br />
                         <br />
-                        <p style={{ fontWeight: "500", textAlign: "center", padding: "0 150px" }}>
+                        <p>
                             Upload any image and watch <u>AI</u> in action! This smart detection app, powered by the <strong>COCO-SSD model</strong>, quickly identifies and labels objects—like <strong>people, pets, and vehicles</strong>—with <em>precision</em>. Perfect for developers, students, or curious minds exploring the power of real-time machine learning. Try it now!
                         </p>
                     </>

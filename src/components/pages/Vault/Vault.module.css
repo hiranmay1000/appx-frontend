@@ -80,3 +80,10 @@
   justify-content: center;
   z-index: 5;
 }
+
+
+@media (max-width: 768px) {
+  .vaultHeader{
+    flex-direction: column;
+  }
+}

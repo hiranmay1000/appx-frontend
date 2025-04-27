@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({ title, src, children, alt, outline }) => 
     if(outline) {
       setBorder('3px solid #004966');
     }
-  }, [])
+  }, [outline])
   return (
     <div className={style.modalWrapper}>
       <div className={style.modalContainer} style={{border:`${border}`}}>

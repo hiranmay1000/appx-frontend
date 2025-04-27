@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { Button, Modal, Toast } from '../../ui';
+import { Button, Modal } from '../../ui';
 import style from './Profie.module.css';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearToastMessage, logoutUser, setToastMessage } from '../../../store/slices/user.slices';
+import { clearToastMessage, logoutUser } from '../../../store/slices/user.slices';
 import { RootState } from '../../../store/store';
 import { changePassword } from '../../../store/slices/user.slices';
 import { API_URL } from '../../../config';

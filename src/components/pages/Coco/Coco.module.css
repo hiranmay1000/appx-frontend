@@ -14,6 +14,7 @@
     border-radius: 15px;
     margin-bottom: 20px;
     box-shadow: 0 0 15px #0433657e;
+    text-align: center;
 }
 
 .predictions li {
@@ -42,6 +43,14 @@
     box-shadow: 0 0 15px #0433657e;
 
 }
+
+.uploadImageSection p{
+    padding: 0px 150px;
+    font-weight: 500;
+    text-align: center;
+}
+
+
 
 .uploadImageSection .uploadImage {
     display: flex;
@@ -89,4 +98,31 @@
 .previewContainer div {
     margin: 0 15px;
     transition: all 1s ease;
+}
+
+
+@media (max-width: 768px) {
+    .coco h1{
+        font-size: 21px;
+    }
+
+    .title{
+        font-size: 15px;
+    }
+    .uploadImageSection p{
+        padding: 10px;
+    }
+
+    .previewContainer{
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .previewImage{
+        max-width: 250px;
+    }
+
+    .predictionContainer{
+        margin: 30px 0 !important;
+    }
 }

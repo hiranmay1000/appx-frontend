@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../../ui';
 import { Link } from 'react-router-dom';
-import errorImg from '../../../images/error-page2.jpg'
+import errorImg from '../../../images/error-page.jpg'
 
 import style from './Error.module.css';
 
