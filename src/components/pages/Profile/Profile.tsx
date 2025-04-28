@@ -7,10 +7,11 @@ import { logoutUser } from '../../../store/slices/user.slices';
 import { persistor, RootState } from '../../../store/store';
 import { changePassword } from '../../../store/slices/user.slices';
 import { API_URL } from '../../../config';
-import { showToast } from '../../../store/slices/toast.slice';
+import { useToast } from '../../../context/ToastContext';
 
 const Profile: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.users);
+  const { showToast } = useToast();
 
   const [showChangePassword, setShowChangePassword] = useState<boolean>(false);
   const [oldPassword, setOldPassword] = useState<string>('');
@@ -23,7 +24,7 @@ const Profile: React.FC = () => {
   const handleLogout = () => {
     dispatch(logoutUser());
     persistor.purge();
-    showToast({ message: 'Logged out successfully', type: 'success' });
+    showToast('Logged out successfully','info');
     navigate('/login');
   };
 

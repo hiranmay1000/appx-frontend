@@ -62,8 +62,6 @@ function* handleLogin(action: PayloadAction<loginPayload>): Generator<any, void,
     if (response.status === 200) {
       const user = response.data.user;
       yield put(setUserData(user));
-    }else{
-      yield put(setUserError('Login failed'));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -109,7 +107,7 @@ function* handleChangePassword(action: PayloadAction<{ email: string; oldPasswor
     if (response.status === 200) {
       yield put(showToast({ message: 'Password changed successfully!', type: 'success' }));
     } else {
-      yield put(showToast({ message: 'Failed to change password. Try again!', type: 'error' }));
+      yield put(showToast({ message: 'Something went wrong!', type: 'error' }));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -119,6 +117,7 @@ function* handleChangePassword(action: PayloadAction<{ email: string; oldPasswor
     }
   }
 }
+
 
 // EDIT IMAGE SAGA
 function* handleEditImage(action: PayloadAction<{ image: File, userId: string, oldImagePath: string }>): Generator<any, void, any> {
