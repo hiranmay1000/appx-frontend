@@ -13,3 +13,17 @@
     box-shadow: 0 0 45px rgba(5, 67, 79, 0.5);
     object-fit: cover;
 }
+
+
+/*Mobile Version*/
+@media (max-width: 768px) {
+    .errorImage img{
+        width: 200px;
+        height: 200px;
+        border-radius: 35px;
+    }
+
+    .errorPage h1{
+        font-size: 25px;
+    }
+}

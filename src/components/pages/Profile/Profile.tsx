@@ -3,15 +3,16 @@ import { Button, Modal } from '../../ui';
 import style from './Profie.module.css';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearToastMessage, logoutUser } from '../../../store/slices/user.slices';
-import { RootState } from '../../../store/store';
+import { logoutUser } from '../../../store/slices/user.slices';
+import { persistor, RootState } from '../../../store/store';
 import { changePassword } from '../../../store/slices/user.slices';
 import { API_URL } from '../../../config';
+import { showToast } from '../../../store/slices/toast.slice';
 
 const Profile: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.users);
 
-  const [isChangePassword, setChangePassword] = useState<boolean>(false);
+  const [showChangePassword, setShowChangePassword] = useState<boolean>(false);
   const [oldPassword, setOldPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
   const [showDeleteWarningModal, setShowDeleteWarningModal] = useState<boolean>(false);
@@ -20,16 +21,16 @@ const Profile: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    setTimeout(() => {
-      dispatch(logoutUser());
-      navigate('/login');
-      dispatch(clearToastMessage());
-    }, 1000);
+    dispatch(logoutUser());
+    persistor.purge();
+    showToast({ message: 'Logged out successfully', type: 'success' });
+    navigate('/login');
   };
+
 
   const handleChangePassword = async () => {
     dispatch(changePassword({ email: user?.email, oldPassword, newPassword }));
-    setChangePassword(false);
+    setShowChangePassword(false);
   };
 
   const handleEditImage = () => {
@@ -62,7 +63,7 @@ const Profile: React.FC = () => {
         <h5><strong>Email:</strong> {user?.email}</h5>
 
 
-        {isChangePassword ? (
+        {showChangePassword ? (
           <div className={style.changePasswordForm}>
             <input
               type="password"
@@ -77,11 +78,11 @@ const Profile: React.FC = () => {
               onChange={(e) => setNewPassword(e.target.value)}
             />
             <Button background='green' onClick={handleChangePassword}>Update Password</Button>
-            <Button background={'red'} onClick={() => setChangePassword(false)}>Cancel</Button>
+            <Button background={'red'} onClick={() => setShowChangePassword(false)}>Cancel</Button>
           </div>
         ) : (
           <div>
-            <Button onClick={() => setChangePassword(true)}>Change Password</Button>
+            <Button onClick={() => setShowChangePassword(true)}>Change Password</Button>
             <Button background='brown' onClick={handleDeleteClick}>Delete Profile</Button>
           </div>
         )}

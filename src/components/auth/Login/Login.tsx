@@ -18,9 +18,10 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (user?.email) {
       navigate('/');
+      showToast("Logged in successfully", 'success');
     } else if (error) {
       showToast(error, 'error');
-    }    
+    }
   }, [user, error, navigate, showToast]);
 
   const handleLoginSubmit = async (email: string, password: string) => {

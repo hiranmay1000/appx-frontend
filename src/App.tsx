@@ -8,6 +8,7 @@ import ForgotPassword from './components/auth/Login/ForgotPassword';
 import EditImage from './components/pages/EditImage/EditImage';
 import { ToastProvider } from './context/ToastContext';
 import ToastContainer from './components/ui/Toast/Toast';
+import { Toast } from './components/ui';
 
 const App: React.FC = () => {
 
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <Router>
           <div className="App">
             <ToastContainer />
+            <Toast />
             <Routes>
               <Route path='/login' element={<Login />} />
               <Route path='/signup' element={<Signup />} />

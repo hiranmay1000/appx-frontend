@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; 
 
 import userReducer from './slices/user.slices';
-// import toastReducer from './slices/toast.slice';
+import toastReducer from './slices/toast.slice';
 
 const persistConfig = {
   key: 'root',
@@ -12,6 +12,7 @@ const persistConfig = {
 };
 
 const rootReducers = combineReducers({
+  toast: toastReducer,
   users: userReducer, // key matches whitelist
 });
 

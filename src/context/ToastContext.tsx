@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useCallback } from "react";
 
 type ToastType = 'success' | 'error' | 'info' | 'warning';
 
@@ -27,11 +27,11 @@ export const useToast = () => {
 export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const showToast = (message: string, type: ToastType = 'info') => {
+  const showToast = useCallback((message: string, type: ToastType = 'info') => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => removeToast(id), 3000);
-  };
+    setTimeout(() => removeToast(id), 5000);
+  }, []);
 
   const removeToast = (id: number) => {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));

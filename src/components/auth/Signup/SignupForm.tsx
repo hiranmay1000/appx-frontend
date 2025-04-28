@@ -4,9 +4,9 @@ import style from './SignupForml.module.css';
 import { Link } from "react-router-dom";
 import { Button, Toast } from "../../ui";
 import defaultProfileImg from '../../../images/default-profile-img.png'
-import { setToastMessage } from "../../../store/slices/user.slices";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { showToast } from "../../../store/slices/toast.slice";
 
 interface SignUpProps {
   onSubmit: (username: string, email: string, password: string, image?: File) => void;
@@ -64,7 +64,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSubmit }) => {
     if (passwordStatus.hasLowercase && passwordStatus.hasUppercase && passwordStatus.hasDigit && passwordStatus.hasSpecialChar && passwordStatus.hasMinLength) {
         onSubmit(userInput.username, userInput.email, userInput.password, userInput.selectedFile || undefined);
     } else {
-      setToastMessage({ message: "Password condition does not met!", color: "red" });
+      showToast({ message: "Password condition does not met!", type: "error" });
     }
   };
 
@@ -129,7 +129,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSubmit }) => {
         <div className={style.passwordWarnings}>
           <p style={{ color: passwordStatus.hasMinLength ? 'green' : 'crimson' }}>8 chars</p>
           |
-          <p style={{ color: passwordStatus.hasSpecialChar ? 'green' : 'crimson' }}>Special character</p>
+          <p style={{ color: passwordStatus.hasSpecialChar ? 'green' : 'crimson' }}>Special char</p>
           |
           <p style={{ color: passwordStatus.hasUppercase ? 'green' : 'crimson' }}>Uppercase</p>
           |

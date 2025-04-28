@@ -27,7 +27,7 @@ const Signup: React.FC = () => {
     } else if (error) {
       console.error("Error signing up:", error);
     }
-  }, [user, error, navigate, dispatch, showToast]);
+  }, [user, error, navigate, showToast  ]);
 
   return (
         <>

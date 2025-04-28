@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { setToastMessage, setUserData, setUserError } from '../slices/user.slices';
+import { setUserData, setUserError } from '../slices/user.slices';
 import { PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { API_URL } from '../../config';
@@ -42,13 +42,12 @@ function* handleSignup(action: PayloadAction<signupPayload>): Generator<any, voi
 
     if (response.status === 201 || response.status === 200) {
       const user = response.data.user;
-      yield put(showToast({ message: response.data.message, type: 'success' }));
-
       yield put(setUserData(user));
+    }else{
+      yield put(setUserError('Signup failed'));
     }
   } catch (error: any) {
     yield put(setUserError(error.response?.data?.message || 'Signup failed'));
-    yield put(showToast({ message: error.response?.data.message, type: 'error' }));
   }
 }
 
@@ -63,14 +62,15 @@ function* handleLogin(action: PayloadAction<loginPayload>): Generator<any, void,
     if (response.status === 200) {
       const user = response.data.user;
       yield put(setUserData(user));
-      yield put(showToast({ message: "Login successful", type: 'success' }));
+    }else{
+      yield put(setUserError('Login failed'));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
       const errorMessage = error.response?.data?.message || 'Login failed';
-      yield put(showToast({ message: errorMessage, type: 'error' }));
+      yield put(setUserError(errorMessage));
     } else {
-      yield put(showToast({ message: 'An unknown error occurred', type: 'error' }));
+      yield put(setUserError('An unknown error occurred'));
     }
   }
 }
@@ -107,19 +107,15 @@ function* handleChangePassword(action: PayloadAction<{ email: string; oldPasswor
     const response = yield call(axios.post, `${API_URL}/change-password`, { email, oldPassword, newPassword });
 
     if (response.status === 200) {
-      // Dispatch success message to show toast
-      yield put(setToastMessage({ message: 'Password changed successfully!', color: 'green' }));
+      yield put(showToast({ message: 'Password changed successfully!', type: 'success' }));
     } else {
-      // Handle error here if response status is not 200
-      yield put(setToastMessage({ message: 'Failed to change password. Try again!', color: 'red' }));
+      yield put(showToast({ message: 'Failed to change password. Try again!', type: 'error' }));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
       yield put(setUserError(error?.message || 'Failed to change password.'));
-      yield put(setToastMessage({ message: 'Failed to change password. Try again!', color: 'red' }));
     } else {
       yield put(setUserError('An unknown error occurred.'));
-      yield put(setToastMessage({ message: 'Failed to change password. Try again!', color: 'red' }));
     }
   }
 }
@@ -142,13 +138,13 @@ function* handleEditImage(action: PayloadAction<{ image: File, userId: string, o
 
     if (response.status === 200) {
       yield put(setUserData(response.data.user));
-      yield put(setToastMessage({ message: response.data.user.message, color: 'green' }));
+      yield put(showToast({ message: response.data.user.message, type: 'success' }));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
-      yield put(setToastMessage({ message: error.response?.data?.message || 'Image update failed', color: 'red' }));
+      yield put(showToast({ message: error.response?.data?.message || 'Image update failed', type: 'error' }));
     } else {
-      yield put(setToastMessage({ message: 'Failed to update image. Try again!', color: 'red' }));
+      yield put(showToast({ message: 'Failed to update image. Try again!', type: 'error' }));
     }
   }
 }

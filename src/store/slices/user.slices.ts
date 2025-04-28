@@ -61,14 +61,6 @@ export const usersSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         },
-        setToastMessage: (state, action: PayloadAction<{ message: string; color: string }>) => {
-            state.toastMessage = action.payload.message;
-            state.toastColor = action.payload.color;
-        },
-        clearToastMessage: (state) => {
-            state.toastMessage = null;
-            state.toastColor = 'red';
-        },
         editImage: (state, action: PayloadAction<{ image: File, userId: string, oldImagePath: string}>) => {
             state.isLoading = true;
             state.error = null;
@@ -84,8 +76,6 @@ export const {
     loginUser,
     logoutUser,
     changePassword,
-    setToastMessage,
-    clearToastMessage,
     editImage
 } = usersSlice.actions;
 
