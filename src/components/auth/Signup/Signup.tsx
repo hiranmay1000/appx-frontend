@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Modal, Spinner, Toast } from "../../ui";
+import { Modal, Spinner } from "../../ui";
 import SignUpForm from "../Signup/SignupForm";
 import signupBanner from '../../../images/signup-img.jpg';
 import { useNavigate } from "react-router-dom";
@@ -35,14 +35,13 @@ const Signup: React.FC = () => {
           {isLoading ? (
             <div style={{ textAlign: 'center', padding: '2rem' }}>
               <Spinner />
-              <p>Logging you in...</p>
+              <br />
+              <p>Creating new user...</p>
             </div>
           ) : (
             <SignUpForm onSubmit={handleSignupFormSubmit} />
           )}
           </Modal>
-
-          <Toast />
       </>
   );
 };

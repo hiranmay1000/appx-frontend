@@ -83,15 +83,14 @@ const Profile: React.FC = () => {
         ) : (
           <div>
             <Button onClick={() => setShowChangePassword(true)}>Change Password</Button>
-            <Button background='brown' onClick={handleDeleteClick}>Delete Profile</Button>
+            <Button background='none' outline={{isBorder: true, color: 'crimson'}} onClick={handleDeleteClick}>Delete Profile</Button>
           </div>
         )}
 
-        <p>_____________________</p>
-        <div>
+        <div style={{borderTop: '1px solid #ccc', marginTop: '20px', paddingTop: '10px'}}>
           <Button onClick={() => navigate('/')}>Home 🏠︎</Button>
           <Button onClick={() => navigate('/dashboard')}>Dashboard 📈</Button>
-          <Button onClick={handleLogout} background='red'>Logout ➜</Button>
+          <Button onClick={handleLogout} background='orangered'>Logout ➜</Button>
         </div>
       </div>
     </>

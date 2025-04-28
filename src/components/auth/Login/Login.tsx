@@ -25,7 +25,6 @@ const Login: React.FC = () => {
   }, [user, error, navigate, showToast]);
 
   const handleLoginSubmit = async (email: string, password: string) => {
-    console.log("Log in frontend!");
     dispatch(loginUser({ email, password }));
   };
 
@@ -35,6 +34,7 @@ const Login: React.FC = () => {
         {isLoading ? (
           <div style={{ textAlign: 'center', padding: '2rem' }}>
             <Spinner />
+            <br />
             <p>Logging you in...</p>
           </div>
         ) : (

@@ -7,6 +7,7 @@ import { RootState } from "../../../store/store";
 import { API_URL } from "../../../config";
 
 import style from "./Vault.module.css";
+import { useToast } from "../../../context/ToastContext";
 
 // ----------------------
 // Type Definitions
@@ -32,6 +33,7 @@ type VaultFolder = {
 // ----------------------
 const Vault: React.FC = () => {
     const { user } = useSelector((state: RootState) => state.users);
+    const { showToast } = useToast();
 
     const [showCreateFolderModal, setShowCreateFolderModal] = useState(false);
     const [showUploadFilesModal, setShowUploadFilesModal] = useState(false);
@@ -133,6 +135,9 @@ const Vault: React.FC = () => {
     };
 
 
+    // ----------------------
+    // Folder Deletion
+    // ----------------------
     const handleDeleteClick = async (itemId: string, type: 'folder' | 'file') => {
         try {
             const response = await axios.delete(`${API_URL}/vault/delete`, {
@@ -144,11 +149,12 @@ const Vault: React.FC = () => {
 
             if (response.status === 200) {
                 fetchItems();
-                // setVaultItems((prevItems) => prevItems.filter(item => item._id !== itemId));
+                showToast(`${type} deleted successfully`, 'success');
             }
 
         } catch (error) {
             console.error("Error deleting item:", error);
+            showToast(`${type} not deleted`, 'error');
         }
 
     }
@@ -217,9 +223,9 @@ const Vault: React.FC = () => {
             <div className={style.vaultHeader}>
                 <h1>{currentFolder ? currentFolder.name : "Your Vault"}</h1>
                 <div>
-                    <Button onClick={() => setShowUploadFilesModal(true)}>Upload 📤</Button>
+                    {currentFolder && <Button background="salmon" onClick={handleGoBack}>⮜ Back</Button>}
+                    <Button background="none" outline={{isBorder: true, color: '#0c5769'}} onClick={() => setShowUploadFilesModal(true)}>Upload 📤</Button>
                     <Button onClick={() => setShowCreateFolderModal(true)}>Create Folder 🗂️</Button>
-                    {currentFolder && <Button onClick={handleGoBack}>⮜ Back</Button>}
                 </div>
             </div>
 
